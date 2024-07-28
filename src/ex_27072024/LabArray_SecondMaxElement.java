@@ -1,4 +1,5 @@
 package ex_27072024;
+import java.util.Arrays;
 
 public class LabArray_SecondMaxElement {
 
@@ -24,6 +25,22 @@ public class LabArray_SecondMaxElement {
         System.out.println("Highest salary: " + highest);
         System.out.println("Second Highest salary: " + second_highest);
         System.out.println("Third Highest salary: " + third_highest);
+
+
+        // Alternate way using sort function
+
+        Arrays.sort(salaries);
+
+        int highestSal = salaries[salaries.length-1];
+        int secondHighestsal = salaries[salaries.length-2];
+        int thirdHighestsal = salaries[salaries.length-3];
+
+        System.out.println("--------------Using Sort function---------------");
+        System.out.println("Highest salary: " + highestSal);
+        System.out.println("Second Highest salary: " + secondHighestsal);
+        System.out.println("Third Highest salary: " + thirdHighestsal);
+
+
         }
 
     }
