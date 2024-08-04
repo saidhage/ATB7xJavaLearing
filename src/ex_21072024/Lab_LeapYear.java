@@ -1,6 +1,5 @@
-package ex_20072024;
+package ex_21072024;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Lab_LeapYear {

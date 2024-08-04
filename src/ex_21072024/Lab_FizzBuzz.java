@@ -1,6 +1,4 @@
-package ex_20072024;
-
-import java.sql.SQLOutput;
+package ex_21072024;
 
 public class Lab_FizzBuzz {
     public static void main(String[] args) {
