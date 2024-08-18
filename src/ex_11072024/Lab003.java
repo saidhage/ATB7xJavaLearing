@@ -1,4 +1,4 @@
-package ex_01112024;
+package ex_11072024;
 
 public class Lab003 {
 //notes .java file is sourcecode  and  .class file is bytecode  == converted by javac
