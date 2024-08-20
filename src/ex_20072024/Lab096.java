@@ -11,8 +11,8 @@ public class Lab096 {
             case 98 :
                 System.out.println("vali -98");
                 break;
-            case 98 :
-                System.out.println("vai - 98");
+          /*  case 98 :
+                System.out.println("vai - 98");*/
         }
     }
 }

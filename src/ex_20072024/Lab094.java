@@ -33,5 +33,8 @@ public class Lab094 {
                 System.out.println("its not a vowel");
         }
 
+
+
+
     }
 }

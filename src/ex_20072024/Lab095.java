@@ -17,11 +17,11 @@ public class Lab095 {
 
         //ans  -> yes its a valid code
 
-        //----below is the invalid code ------because in witch we need a expression which we want to match
-        boolean b = true;
+        //----below is the invalid code ------because in switch we need a expression which we want to match
+      /*  boolean b = true;
         switch (b) {
 
-        }
+        }*/
 
 
     }
