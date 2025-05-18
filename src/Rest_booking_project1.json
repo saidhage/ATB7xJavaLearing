@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "3bb5bac7-c743-438a-968d-e979c3a7c28f",
+		"name": "Rest_booking_project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41090844"
+	},
+	"item": [
+		{
+			"name": "1_CreateNewBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var BookiID = pm.response.json()[\"bookingid\"];",
+							"// console.log(BookiID);",
+							"// pm.collectionVariables.set(\"bookingid\", BookiID);",
+							"pm.environment.set(\"e_bookingid\", BookiID);",
+							"console.log(BookiID);",
+							"",
+							"pm.test(\"Verify booking ID is not null\", function(){",
+							"    pm.expect(BookiID).to.not.equal(null); //booking id should not be null",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Saiprasad\",\n    \"lastname\" : \"Boss\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/booking",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2_UpdatePartiallyBooking_BasicAuth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify status code 200?\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"verify updated firstname and lastname after update\", function() {",
+							"  pm.expect(pm.response.json().firstname).to.equal(\"Saiprasad\");",
+							"  pm.expect(pm.response.json().lastname).to.equal(\"D\");",
+							"  console.log(pm.response.json().firstname);",
+							"});",
+							"",
+							"pm.test(\"Verify Booking Dates after patch\", function(){",
+							"    pm.expect(pm.response.json().bookingdates.checkin).to.equal(\"2025-05-01\");",
+							"    pm.expect(pm.response.json().bookingdates.checkout).to.equal(\"2025-05-10\");",
+							"});",
+							"",
+							"pm.test(\"Verify bookingId is not present in response\", function() {",
+							"   pm.expect(pm.response.json().bookingId).to.not.exist;   //verifying booking id is not present in response",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token=abc123"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46cGFzc3dvcmQxMjM=",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Saiprasad\",\n    \"lastname\" : \"D\",\n    \"bookingdates\": {\n        \"checkin\": \"2025-05-01\",\n        \"checkout\": \"2025-05-10\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/booking/{{e_bookingid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"booking",
+						"{{e_bookingid}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X PATCH \\\n  https://restful-booker.herokuapp.com/booking/1 \\\n  -H 'Content-Type: application/json' \\\n  -H 'Accept: application/json' \\\n  -H 'Cookie: token=abc123' \\\n  -d '{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "3_GetBookingDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Verify price\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.totalprice).to.eql(111);",
+							"});",
+							"",
+							"pm.test(\"Verify lastName after update \", function(){",
+							"    pm.expect(pm.response.json().lastname).to.equal(\"D\");",
+							"})",
+							"",
+							"pm.test(\"Verify checkout date\", function(){",
+							"    var LastDate = pm.response.json()[\"bookingdates\"][\"checkout\"];",
+							"    console.log(LastDate);",
+							"    pm.expect(LastDate).to.equal(\"2025-05-10\");",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/booking/{{e_bookingid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"booking",
+						"{{e_bookingid}}"
+					]
+				},
+				"description": "Generated from cURL: curl -i https://restful-booker.herokuapp.com/booking/1\n"
+			},
+			"response": []
+		}
+	]
+}
