@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "b9b6398b-3bd1-4e24-9410-932830cbec8d",
+		"name": "DDT | Project4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41090844"
+	},
+	"item": [
+		{
+			"name": "DDT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Verify that response is a json Object\", function(){",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData).to.be.an('object');",
+							"})",
+							"",
+							"pm.test(\"Verify that resposne has id\", function(){",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData).to.have.property('id');    ",
+							"})",
+							"",
+							"pm.test(\"Verify that id is not null\", function(){",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.id).to.not.equal(null);",
+							"    ",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json; v=1.0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":{{id}},\"userName\":\"{{username}}\",\"password\":\"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
